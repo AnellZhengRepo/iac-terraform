@@ -12,7 +12,12 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# Create a VPC
-resource "aws_vpc" "example" {
-  cidr_block = "10.0.0.0/16"
+# Configure S3 bucket
+resource "aws_s3_bucket" "tf_s3_example" {
+  bucket = "tf-s3-example-practice"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
 }
