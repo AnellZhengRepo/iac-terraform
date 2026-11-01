@@ -1,0 +1,4 @@
+# File used to OVERRIDE varibles VALUES
+
+environment    = "stage"
+instance_count = 1
