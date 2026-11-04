@@ -51,4 +51,57 @@ resource "aws_s3_bucket" "tf_s3_example_substr" {
 
 # 6- lookup(map, "string_value_for_lookup", "default_value_if_not_exists")
 # Find the value on the map by searching the key given on the string_value_for_lookup.
-# If no key found, default_value_if_not_exists will be set
+# If no key found, default_value_if_not_exists will be set.
+
+# 7- variable validation (Check out variable.tf)
+# Used as conditions to control variables values and throw errors if it fails the check.
+# Ex: Setting the value on terraform.tfvars for instance_type to test the conditions
+
+# │ Error: Invalid value for variable
+# │
+# │   on terraform.tfvars line 4:
+# │    4: instance_type = "x"
+# │     ├────────────────
+# │     │ var.instance_type is "x"
+# │
+# │ Instance must start with t2 or t3
+# │
+# │ This was checked by the validation rule at variables.tf:54,3-13.
+
+# 8- sensitive
+# Add sensitve to a variable (credentials) to limit the output of the value.
+# It is a boolean type.
+# Ex:
+# │ Error: Output refers to sensitive values
+# │
+# │   on output.tf line 23:
+# │   23: output "credentials" {
+# │
+# │ To reduce the risk of accidentally exporting sensitive data that was
+# │ intended to be only internal, Terraform requires that any root module
+# │ output containing sensitive data be explicitly marked as sensitive, to
+# │ confirm your intent.
+# │
+# │ If you do intend to export this data, annotate the output value as
+# │ sensitive by adding the following argument:
+# │     sensitive = true
+
+# 9- numeric functions.
+# Ex: see usage on local.tf
+# Transform negative numbers to positive using abs()
+# max() return the greater number from a set
+# min() return the lowest number from a set
+# sum() returns the sum of numbers from a list or set
+
+# 10- file validation
+# fileexists("file_name") used to check if file is present on the location, returns boolean
+# jsondecode(file("file_name")) used to read json file and used it inside the process.
+# Watch implementation on local.tf file
+# Ex output:
+#  + config_data            = {
+#       + api = {
+#           + endpoint = "https://api.example.com"
+#           + timeout  = 30
+#         }
+#     }
+#   + config_exist           = true

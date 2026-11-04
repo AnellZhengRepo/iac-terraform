@@ -1,0 +1,6 @@
+{
+    "api": {
+        "endpoint": "https://api.example.com",
+        "timeout": 30
+    }
+}

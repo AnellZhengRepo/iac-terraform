@@ -42,3 +42,26 @@ variable "instace_sizes" {
 variable "environment" {
   default = "stage"
 }
+
+variable "instance_type" {
+  default = "t2.micro"
+
+  validation {
+    condition = length(var.instance_type) >= 3 && length(var.instance_type) <= 20
+    error_message = "Instance type must be between 3 and 20 characters"
+  }
+
+  validation {
+    condition = can(regex("^t[2-3]\\.", var.instance_type))
+    error_message = "Instance must start with t2. or t3."
+  }
+}
+
+variable "credentials" {
+  default = "abcd1234"
+  sensitive = false
+}
+
+variable "monthly_costs" {
+  default = [-50, 100, 75, 200]
+}
